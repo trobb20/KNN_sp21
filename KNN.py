@@ -6,16 +6,18 @@ import matplotlib.pyplot as plt
 
 # Our dataset is a numpy array with vectors corresponding
 # to datapoints. Each datapoint is assigned a 'classification'
-# which is tacked on to the end of the vector. 
-data = np.array([[1,1,'a'],
-				[1.1,1.1,'down'],
-				[1.2,1.2,'up'],
-				[0.9,0.8, 'up'],
-				[0.1,0.1, 'down'],
-				[0.2,0.2, 'x'],
-				[-0.1,-0.1,'up'],
-				[0,0,'down'],
-				[0.6,0.6,'x']])
+# which is tacked on to the end of the vector. Vectors 
+# can be n-dimensional.
+data = np.array([[1,1,'x'],
+				[1.1,1.1,'top_right'],
+				[1.2,1.2,'top_right'],
+				[0.9,0.9, 'x'],
+				[0.1,0.1, 'x'],
+				[0.2,0.2, 'bottom_left'],
+				[-0.1,-0.1,'bottom_left'],
+				[0,0,'bottom_left'],
+				[0.6,0.6,'x'],
+				[0.5,0.5,'x']])
 
 def get_vector(data,ind):
 	# Given the dataset, and an index for a vector,
@@ -101,7 +103,7 @@ def KNN_main(data,K,verbose=False):
 
 ######## Testing ##########
 old_data=np.copy(data)
-K=3
+K=4				#experiment with changing K and see the results (k=1, k=3, k=5)
 KNN_main(data,K,verbose=True)
 
 #Visualize datasets
@@ -109,9 +111,9 @@ fig1 = plt.figure()
 plt.title('old data')
 for i in range(old_data.shape[0]):
 	vec = get_vector(old_data,i)
-	if old_data[i,-1]=='up':
+	if old_data[i,-1]=='top_right':
 		plt.plot(vec[0],vec[1],'ro')
-	elif old_data[i,-1]=='down':
+	elif old_data[i,-1]=='bottom_left':
 		plt.plot(vec[0],vec[1],'bo')
 	else:
 		plt.plot(vec[0],vec[1],'ko')
@@ -120,9 +122,9 @@ fig2 = plt.figure()
 plt.title('new data')
 for i in range(data.shape[0]):
 	vec = get_vector(data,i)
-	if data[i,-1]=='up':
+	if data[i,-1]=='top_right':
 		plt.plot(vec[0],vec[1],'ro')
-	elif data[i,-1]=='down':
+	elif data[i,-1]=='bottom_left':
 		plt.plot(vec[0],vec[1],'bo')
 	else:
 		plt.plot(vec[0],vec[1],'ko')
