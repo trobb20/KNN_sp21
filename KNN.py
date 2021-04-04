@@ -3,21 +3,27 @@
 import numpy as np
 import scipy.stats as st
 import matplotlib.pyplot as plt
+from morse_data import *
 
 # Our dataset is a numpy array with vectors corresponding
 # to datapoints. Each datapoint is assigned a 'classification'
 # which is tacked on to the end of the vector. Vectors 
 # can be n-dimensional.
-data = np.array([[1,1,'x'],
-				[1.1,1.1,'top_right'],
-				[1.2,1.2,'top_right'],
-				[0.9,0.9, 'x'],
-				[0.1,0.1, 'x'],
-				[0.2,0.2, 'bottom_left'],
-				[-0.1,-0.1,'bottom_left'],
-				[0,0,'bottom_left'],
-				[0.6,0.6,'x'],
-				[0.5,0.5,'x']])
+t,light = import_data('morse.csv')
+deltas = deltas(find_zeros(light))
+data = produce_data(deltas)
+
+
+# data = np.array([[1,1,'x'],
+# 				[1.1,1.0,'top_right'],
+# 				[1.2,1.4,'top_right'],
+# 				[0.9,0.8, 'x'],
+# 				[0.1,0.2, 'x'],
+# 				[0.2,0.0, 'bottom_left'],
+# 				[-0.1,-0.3,'bottom_left'],
+# 				[0,.1,'bottom_left'],
+# 				[0.6,0.8,'x'],
+# 				[0.5,0.3,'x']])
 
 def get_vector(data,ind):
 	# Given the dataset, and an index for a vector,
@@ -103,7 +109,7 @@ def KNN_main(data,K,verbose=False):
 
 ######## Testing ##########
 old_data=np.copy(data)
-K=4				#experiment with changing K and see the results (k=1, k=3, k=5)
+K=5	#experiment with changing K and see the results (k=1, k=3, k=5)
 KNN_main(data,K,verbose=True)
 
 #Visualize datasets
@@ -111,22 +117,30 @@ fig1 = plt.figure()
 plt.title('old data')
 for i in range(old_data.shape[0]):
 	vec = get_vector(old_data,i)
-	if old_data[i,-1]=='top_right':
-		plt.plot(vec[0],vec[1],'ro')
-	elif old_data[i,-1]=='bottom_left':
-		plt.plot(vec[0],vec[1],'bo')
-	else:
-		plt.plot(vec[0],vec[1],'ko')
+	if old_data[i,-1]=='0':
+		plt.plot(vec,0,'ro')
+	elif old_data[i,-1]=='1':
+		plt.plot(vec,0,'bo')
+	elif old_data[i,-1]=='2':
+		plt.plot(vec,0,'go')
+	elif old_data[i,-1]=='3':
+		plt.plot(vec,0,'ko')
+	elif old_data[i,-1]=='4':
+		plt.plot(vec,0,'mo')
 
 fig2 = plt.figure()
 plt.title('new data')
 for i in range(data.shape[0]):
 	vec = get_vector(data,i)
-	if data[i,-1]=='top_right':
-		plt.plot(vec[0],vec[1],'ro')
-	elif data[i,-1]=='bottom_left':
-		plt.plot(vec[0],vec[1],'bo')
-	else:
-		plt.plot(vec[0],vec[1],'ko')
+	if data[i,-1]=='0':
+		plt.plot(vec,0,'ro')
+	elif data[i,-1]=='1':
+		plt.plot(vec,0,'bo')
+	elif data[i,-1]=='2':
+		plt.plot(vec,0,'go')
+	elif data[i,-1]=='3':
+		plt.plot(vec,0,'ko')
+	elif data[i,-1]=='4':
+		plt.plot(vec,0,'mo')
 
 plt.show()
