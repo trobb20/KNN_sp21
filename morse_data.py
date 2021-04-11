@@ -32,7 +32,7 @@ def find_zeros(y):
 	return zeros
 
 def deltas(zeros):
-	deltas = np.zeros(zeros.shape)
+	deltas = np.zeros((zeros.shape[0]-1))
 
 	for i in range(1,zeros.shape[0]):
 		delta = zeros[i]-zeros[i-1]
@@ -41,22 +41,24 @@ def deltas(zeros):
 	return deltas
 
 def produce_data(deltas):
-	classes = np.random.randint(0,high=3,size=deltas.shape[0]).astype('str')
+	classes = np.random.randint(0,high=100,size=deltas.shape[0]).astype('str')
 	data = np.array([deltas.T,classes], dtype=object).T
 
 	return data
 
 
 # t,light = import_data('morse.csv')
-# plt.figure()
-# plt.plot(t,light)
-# plt.show()
+# #plt.figure()
+# #plt.plot(t,light)
+# #plt.show()
 
 # zeros = find_zeros(light)
+# print(zeros)
 # deltas = deltas(zeros)
+# print(deltas)
 
-# plt.figure()
-# plt.plot(deltas,np.zeros(deltas.shape),'ro')
-# plt.show()
+# # plt.figure()
+# # plt.plot(deltas,np.zeros(deltas.shape),'ro')
+# # plt.show()
 
-# print(produce_data(deltas))
+# #print(produce_data(deltas))

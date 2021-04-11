@@ -12,7 +12,7 @@ from morse_data import *
 t,light = import_data('morse.csv')
 deltas = deltas(find_zeros(light))
 data = produce_data(deltas)
-
+print('Data Shape ',data.shape)
 
 # data = np.array([[1,1,'x'],
 # 				[1.1,1.0,'top_right'],
@@ -109,38 +109,18 @@ def KNN_main(data,K,verbose=False):
 
 ######## Testing ##########
 old_data=np.copy(data)
-K=5	#experiment with changing K and see the results (k=1, k=3, k=5)
-KNN_main(data,K,verbose=True)
+K=3 #experiment with changing K and see the results (k=1, k=3, k=5)
+KNN_main(data,K,verbose=False)
 
 #Visualize datasets
 fig1 = plt.figure()
-plt.title('old data')
+plt.title('old plot')
 for i in range(old_data.shape[0]):
-	vec = get_vector(old_data,i)
-	if old_data[i,-1]=='0':
-		plt.plot(vec,0,'ro')
-	elif old_data[i,-1]=='1':
-		plt.plot(vec,0,'bo')
-	elif old_data[i,-1]=='2':
-		plt.plot(vec,0,'go')
-	elif old_data[i,-1]=='3':
-		plt.plot(vec,0,'ko')
-	elif old_data[i,-1]=='4':
-		plt.plot(vec,0,'mo')
+	plt.plot(old_data[i,0],int(old_data[i,-1]),'bo')
 
 fig2 = plt.figure()
-plt.title('new data')
+plt.title('new plot')
 for i in range(data.shape[0]):
-	vec = get_vector(data,i)
-	if data[i,-1]=='0':
-		plt.plot(vec,0,'ro')
-	elif data[i,-1]=='1':
-		plt.plot(vec,0,'bo')
-	elif data[i,-1]=='2':
-		plt.plot(vec,0,'go')
-	elif data[i,-1]=='3':
-		plt.plot(vec,0,'ko')
-	elif data[i,-1]=='4':
-		plt.plot(vec,0,'mo')
+	plt.plot(data[i,0],int(data[i,-1]),'go')
 
 plt.show()
